@@ -19,3 +19,23 @@ df = pd.read_csv(file_path, header=0)  # header=0 means the first row in the CSV
 # Display the first few rows of the dataframe to confirm the data has been loaded correctly
 print("Dataset Preview:")  # Print a label for context
 print(df.head(5))  # Display the first 5 rows of the dataset
+
+# Games that are free
+free_games = df[df['Required age'] == 0]
+
+# Games that are not free
+paid_games = df[df['Required age'] > 0]
+
+# Display how many free and paid games there are
+print("Number of free games:", len(free_games))
+print("Number of paid games:", len(paid_games))
+
+# Filter games with non-zero average playtime
+played_games = df[df['Average playtime forever'] > 0]
+
+# Display the number of such games
+print("Number of games with playtime > 0:", len(played_games))
+
+# Show the top 10 of them
+print("Games with non-zero average playtime:")
+print(played_games[['AppID', 'Average playtime forever']].head(10))
