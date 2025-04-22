@@ -17,34 +17,34 @@ file_path = "games.csv"
 # Read the dataset into a pandas dataframe
 df = pd.read_csv(file_path, header=0)
 
-# --- Clean Data ---
+# Clean Data
 df = df.dropna(subset=['Positive', 'Negative'])
 
 # Filter free and paid games
 free_games = df[df['Required age'] == 0]
 paid_games = df[df['Required age'] > 0]
 
-# --- FOREVER PLAYTIME ---
+# Forever playtime
 free_forever_hours = free_games['Average playtime forever'].mean() / 60
 paid_forever_hours = paid_games['Average playtime forever'].mean() / 60
 total_forever = free_forever_hours + paid_forever_hours
 free_forever_percent = (free_forever_hours / total_forever) * 100 if total_forever > 0 else 0
 paid_forever_percent = (paid_forever_hours / total_forever) * 100 if total_forever > 0 else 0
 
-# --- 2 WEEKS PLAYTIME ---
+# 2 weeks playtime
 free_2w_hours = free_games['Average playtime two weeks'].mean() / 60
 paid_2w_hours = paid_games['Average playtime two weeks'].mean() / 60
 total_2w = free_2w_hours + paid_2w_hours
 free_2w_percent = (free_2w_hours / total_2w) * 100 if total_2w > 0 else 0
 paid_2w_percent = (paid_2w_hours / total_2w) * 100 if total_2w > 0 else 0
 
-# --- SCORES ---
+# Scores
 free_score = free_games['Positive'] / (free_games['Positive'] + free_games['Negative'])
 paid_score = paid_games['Positive'] / (paid_games['Positive'] + paid_games['Negative'])
 free_avg_score = free_score.mean()
 paid_avg_score = paid_score.mean()
 
-# --- Plot all charts in a 2x2 grid ---
+# Plot all charts in a 2x2 grid 
 fig, axs = plt.subplots(2, 2, figsize=(14, 10))
 labels = ['Free Games', 'Paid Games']
 colors = ['skyblue', 'lightcoral']
